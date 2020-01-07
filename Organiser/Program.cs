@@ -9,7 +9,7 @@ namespace Organiser {
             try {
                 var amount = int.Parse(input);
                 var list = CreateList(amount);
-                var list2 = list;
+                var list2 = new List<int>(list);
                 
                 foreach (var item in list) {
                     Console.Write(item);
