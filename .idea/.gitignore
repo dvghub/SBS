@@ -1,3 +1,6 @@
 ﻿
 # Default ignored files
 /.idea.SBS/.idea/workspace.xml
+# Datasource local storage ignored files
+/.idea.SBS/.idea/dataSources/
+/.idea.SBS/.idea/dataSources.local.xml

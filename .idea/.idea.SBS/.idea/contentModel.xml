@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\moili\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\moili\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_SBS.-1457083493.00" t="ExcludeRecursive" />
+    <e p="D:\Educom\Projects\organiser\SBS" t="IncludeFlat">
+      <e p="BornToMove" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BornToMove.csproj" t="IncludeRecursive" />
+        <e p="DatabaseConnection.cs" t="Include" />
+        <e p="Move.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="BornToMove.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="organiser" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Organiser.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Organiser.csproj" t="IncludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Sorter.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SBS.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
