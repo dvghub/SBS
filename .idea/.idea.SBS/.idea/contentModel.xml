@@ -35,6 +35,7 @@
         <e p="Move.cs" t="Include" />
         <e p="MoveContext.cs" t="Include" />
         <e p="MoveCrud.cs" t="Include" />
+        <e p="MoveRating.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
