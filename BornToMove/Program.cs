@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Linq;
+using BornToMove.Business;
+using BornToMove.DAL;
 
 namespace BornToMove {
     public static class Program {
         private static readonly Display Display = new Display();
-        
-        static void Main(string[] args) {
+        private static readonly BuMove Business = new BuMove();
+
+        private static void Main(string[] args) {
             Display.Print("Hello!");
             ShowMenu();
         }
         
         private static void ShowMenu() {
             while (true) {
-                Display.Print("It's time to MOVE!\n" + "Would you like to get a suggestion or see the list [s/L]?");
+                Display.Print("It's time to MOVE!\n" + 
+                              "Would you like to get a suggestion or see the list [s/L]?");
                 var input = Console.ReadLine();
                 if (input != null) {
                     switch (input[0]) {
@@ -37,10 +42,12 @@ namespace BornToMove {
 
         private static void ShowList() {
             while (true) {
-                var moves = MoveCrud.ReadAll();
-                Display.Print("   Id Name          Rating\n" + "----------------------------------");
+                var moves = Business.GimmeAll();
+                Display.Print("   Id Name          Rating\n" + 
+                              "----------------------------------");
                 foreach (var move in moves) { Display.Print($"[{move.Id,3}] {move.Name,-14}{move.Rating,-1}"); }
-                Display.Print("[  0] Add new exercise\n\n" + "Which exercise would you like to do today?");
+                Display.Print("[  0] Add new exercise\n\n" + 
+                              "Which exercise would you like to do today?");
 
                 var input = Console.ReadLine();
                 if (input != null) {
@@ -60,7 +67,7 @@ namespace BornToMove {
         }
 
         private static void ShowExercise(int id = 0) {
-            var move = id == 0 ? MoveCrud.Read() : MoveCrud.Read(id);
+            var move = id == 0 ? Business.GimmeRandom() : Business.GimmeThis(id);
             Display.Print("   Id Name          Rating" +
                           "----------------------------------" +
                           $"[{move.Id, 3}] {move.Name, -14}{move.Rating, -1}" +
@@ -72,7 +79,7 @@ namespace BornToMove {
         private static void AddExercise() {
             while (true) {
                 Display.Print("Please enter a name for the new exercise:");
-                var names = new MoveCrud().ReadAllNames();
+                var names = Business.GimmeAll().Select(move => move.Name).ToList();
                 var name = Console.ReadLine();
                 if (names.Contains(name)) {
                     Display.Print("Exercise already exists.");

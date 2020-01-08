@@ -4,11 +4,11 @@ using System.Text.RegularExpressions;
 
 namespace BornToMove {
     public class Display {
-        public static void Print(string toPrint) {
+        public void Print(string toPrint) {
             Console.WriteLine(toPrint);
         }
         
-        public static void PrintWrapped(string paragraph) { //Copy pasted but I know what it does
+        public void PrintWrapped(string paragraph) { //Copy pasted but I know what it does
             paragraph = new Regex(@" {2,}").Replace(paragraph.Trim(), @" ");
             var left = Console.CursorLeft; var top = Console.CursorTop; var lines = new List<string>();
             for (var i = 0; paragraph.Length > 0; i++) {
