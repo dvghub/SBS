@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using MySql.Data.MySqlClient;
 
 namespace BornToMove {
-    class Program {
+    public static class Program {
+        private static readonly Display Display = new Display();
+        
         static void Main(string[] args) {
-            
-            Console.WriteLine("Hello!");
+            Display.Print("Hello!");
             ShowMenu();
         }
-
+        
         private static void ShowMenu() {
             while (true) {
-                Console.WriteLine("It's time to MOVE!");
-                Console.WriteLine("Would you like to get a suggestion or see the list [s/L]?");
+                Display.Print("It's time to MOVE!\n" + "Would you like to get a suggestion or see the list [s/L]?");
                 var input = Console.ReadLine();
-
                 if (input != null) {
                     switch (input[0]) {
                         case 's':
@@ -29,110 +24,117 @@ namespace BornToMove {
                             ShowList();
                             break;
                         default:
-                            Console.WriteLine("Please enter a valid answer.");
-                            continue;
+                            Display.Print("Please answer with [s]uggestion or [l]ist.");
+                            break;
                     }
+                } else {
+                    Display.Print("Please provide some input.");
+                    continue;
                 }
-
                 break;
             }
         }
 
         private static void ShowList() {
-            var moves = MoveCrud.ReadAll();
-            Console.WriteLine("   Id Name          Rating");
-            Console.WriteLine("----------------------------------");
-            foreach (var move in moves) {
-                Console.WriteLine($"[{move.Id, 3}] {move.Name, -14}{move.Rating, -1}");
-            }
-            Console.WriteLine("[  0] Add new exercise");
-            Console.WriteLine("\nWhich exercise would you like to do today?");
-            
-            var input = Console.ReadLine();
-            try {
-                var id = int.Parse(input);
-                if (id < 0 || id > moves.Count) throw new FormatException();
-                if (id == 0) AddExercise();
-                else ShowExercise(id);
-            } catch (FormatException e) {
-                Console.WriteLine($"{input} is not a valid input. Please try again.");
-                ShowList();
+            while (true) {
+                var moves = MoveCrud.ReadAll();
+                Display.Print("   Id Name          Rating\n" + "----------------------------------");
+                foreach (var move in moves) { Display.Print($"[{move.Id,3}] {move.Name,-14}{move.Rating,-1}"); }
+                Display.Print("[  0] Add new exercise\n\n" + "Which exercise would you like to do today?");
+
+                var input = Console.ReadLine();
+                if (input != null) {
+                    if (int.TryParse(input, out var id)) {
+                        if (id < 0 || id > moves.Count) throw new FormatException();
+                        if (id == 0) AddExercise();
+                        else ShowExercise(id);
+                    } else {
+                        Display.Print($"{input} is not a valid input.");
+                        ShowList();
+                    }
+                    Display.Print("Please provide some input.");
+                    continue;
+                }
+                break;
             }
         }
 
         private static void ShowExercise(int id = 0) {
             var move = id == 0 ? MoveCrud.Read() : MoveCrud.Read(id);
-            Console.WriteLine("   Id Name          Rating");
-            Console.WriteLine("----------------------------------");
-            Console.WriteLine($"[{move.Id, 3}] {move.Name, -14}{move.Rating, -1}");
-            Console.WriteLine("----------------------------------");
-            WordWrap(move.Description);
+            Display.Print("   Id Name          Rating" +
+                          "----------------------------------" +
+                          $"[{move.Id, 3}] {move.Name, -14}{move.Rating, -1}" +
+                          "----------------------------------");
+            Display.PrintWrapped(move.Description);
             GetVotes();
         }
 
         private static void AddExercise() {
-            Console.WriteLine("Please enter a name for the new exercise:");
-            var name = Console.ReadLine();
-            var names = new MoveCrud().ReadAllNames();
-            if (names.Contains(name)) {
-                Console.WriteLine("Exercise already exists.");
-                AddExercise();
-            }
-            Console.WriteLine("Please enter a rating for the new exercise:");
-            var input = Console.ReadLine();
-            try {
-                var rating = int.Parse(input);
-                Console.WriteLine("Please enter a description for the new exercise:");
-                var description = Console.ReadLine();
-                var move = new Move {
-                    Name = name,
-                    Description = description,
-                    Rating = rating
-                };
-                var id = new MoveCrud().Create(move);
-                Console.WriteLine($"Exercise created with id: {id}");
-                ShowMenu();
-            } catch (FormatException e) {
-                Console.WriteLine($"{input} is not a valid input. Please try again.");
-                AddExercise();
+            while (true) {
+                Display.Print("Please enter a name for the new exercise:");
+                var names = new MoveCrud().ReadAllNames();
+                var name = Console.ReadLine();
+                if (names.Contains(name)) {
+                    Display.Print("Exercise already exists.");
+                    AddExercise();
+                }
+
+                Display.Print("Please enter a rating for the new exercise:");
+                var input = Console.ReadLine();
+                if (input != null) {
+                    if (int.TryParse(input, out var rating)) {
+                        Display.Print("Please enter a description for the new exercise:");
+                        var description = Console.ReadLine();
+
+                        var move = new Move {Name = name, Description = description, Rating = rating};
+
+                        var id = new MoveCrud().Create(move);
+                        Display.Print($"Exercise created with id: {id}");
+                        ShowMenu();
+                    } else {
+                        Display.Print($"{input} is not a valid input.");
+                        continue;
+                    }
+                }
+                break;
             }
         }
 
         private static void GetVotes() {
-            Console.WriteLine("Please give this exercise a vote [1-5]:");
-            var input = Console.ReadLine();
-            try {
-                var vote = int.Parse(input);
-                if (vote < 1 || vote > 5) throw new FormatException();
-                GetRating();
-            } catch (FormatException e) {
-                Console.WriteLine($"{input} is not a valid input. Please try again.");
-                GetVotes();
+            while (true) {
+                Display.Print("Please give this exercise a vote [1-5]:");
+                var input = Console.ReadLine();
+                if (int.TryParse(input, out var vote)) {
+                    if (vote >= 1 && vote <= 5) {
+                        GetRating();
+                    } else {
+                        Display.Print($"{input} is not a valid input. Please try again.");
+                        continue;
+                    }
+                } else {
+                    Display.Print($"{input} is not a valid input. Please try again.");
+                    continue;
+                }
+                break;
             }
         }
 
         private static void GetRating() {
-            Console.WriteLine("Please give this exercise an intensity rating:");
-            var input = Console.ReadLine();
-            try {
-                var rating = int.Parse(input);
-                if (rating < 1 || rating > 5) throw new FormatException();
-                Console.WriteLine("Thanks! See you tomorrow!");
-            } catch (FormatException e) {
-                Console.WriteLine($"{input} is not a valid input. Please try again.");
-                GetRating();
-            }
-        }
-        
-        private static void WordWrap(string paragraph) { //Copy pasted but I know what it does
-            paragraph = new Regex(@" {2,}").Replace(paragraph.Trim(), @" ");
-            var left = Console.CursorLeft; var top = Console.CursorTop; var lines = new List<string>();
-            for (var i = 0; paragraph.Length > 0; i++) {
-                lines.Add(paragraph.Substring(0, Math.Min(35, paragraph.Length)));
-                var length = lines[i].LastIndexOf(" ", StringComparison.Ordinal);
-                if (length > 0) lines[i] = lines[i].Remove(length);
-                paragraph = paragraph.Substring(Math.Min(lines[i].Length + 1, paragraph.Length));
-                Console.SetCursorPosition(left, top + i); Console.WriteLine(lines[i]);
+            while (true) {
+                Display.Print("Please give this exercise an intensity rating [1-5]:");
+                var input = Console.ReadLine();
+                if (int.TryParse(input, out var rating)) {
+                    if (rating >= 1 || rating <= 5) {
+                        Console.WriteLine("Thanks! See you tomorrow!");
+                    } else {
+                        Console.WriteLine($"{input} is not a valid input. Please try again.");
+                        continue;
+                    }
+                } else {
+                    Console.WriteLine($"{input} is not a valid input. Please try again.");
+                    continue;
+                }
+                break;
             }
         }
     }

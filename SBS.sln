@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organiser", "Organiser\Orga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove", "BornToMove\BornToMove.csproj", "{B97B79BB-3C40-46A3-B3FF-BEE77A77E957}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.Business", "BornToMove.Business\BornToMove.Business.csproj", "{635BD6D2-50BA-4ABB-8AB9-D2B68D463B5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{4116D8AA-2839-41BD-899B-CA9397B98D0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{B97B79BB-3C40-46A3-B3FF-BEE77A77E957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B97B79BB-3C40-46A3-B3FF-BEE77A77E957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B97B79BB-3C40-46A3-B3FF-BEE77A77E957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{635BD6D2-50BA-4ABB-8AB9-D2B68D463B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635BD6D2-50BA-4ABB-8AB9-D2B68D463B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635BD6D2-50BA-4ABB-8AB9-D2B68D463B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{635BD6D2-50BA-4ABB-8AB9-D2B68D463B5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
