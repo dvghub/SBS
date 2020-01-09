@@ -86,13 +86,12 @@ namespace BornToMove.DAL {
 
         public UsableMove Update(UsableMove move) {
             var old = _context.Moves.Find(move.Id);
-            old = move;
-            _context.SaveChanges();
-            return new UsableMove {
-                Id = move.Id,
+            old = new Move {
                 Name = move.Name,
                 Description = move.Description
             };
+            _context.SaveChanges();
+            return move;
         }
 
         public void Update(int[] ratings) {

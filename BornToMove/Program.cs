@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using BornToMove.Business;
 using BornToMove.DAL;
 
@@ -17,17 +18,19 @@ namespace BornToMove {
         private static void ShowMenu() {
             while (true) {
                 Display.Print("It's time to MOVE!\n" + 
-                              "Would you like to get a suggestion or see the list [s/L]?");
+                              "Would you like to get a [s]uggestion or see the [l]ist?" +
+                              "Or press [x] to exit.");
                 var input = Console.ReadLine();
                 if (input != null) {
-                    switch (input[0]) {
+                    switch (input.ToLower()[0]) {
                         case 's':
-                        case 'S':
                             ShowExercise();
                             break;
                         case 'l':
-                        case 'L':
                             ShowList();
+                            break;
+                        case 'x':
+                            Environment.Exit(0);
                             break;
                         default:
                             Display.Print("Please answer with [s]uggestion or [l]ist.");
@@ -44,28 +47,27 @@ namespace BornToMove {
         private static void ShowList() {
             while (true) {
                 var moves = Business.GimmeAll();
-                Display.Print("   Id Name          Rating\n" + 
-                              "----------------------------------");
-                var ids = new List<int>();
+                Display.PrintHeader();
+                var index = 1;
                 moves.ForEach((move) => {
-                    Display.Print($"[{move.Id,3}] {move.Name,-14}{move.Rating,-1}");
-                    ids.Add(move.Id);
+                    Display.PrintItem(index.ToString(), move.Name, move.Description);
+                    index++;
                 });
-                Display.Print("[  0] Add new exercise\n\n" + 
+                Display.Print("   0  Add new exercise\n\n" + 
                               "Which exercise would you like to do today?");
 
                 var input = Console.ReadLine();
                 if (input != null) {
                     if (int.TryParse(input, out var id)) {
-                        if (!ids.Contains(id)) {
+                        if (id < 0 && id > index) {
                             Display.Print("Please provide an existing id.");
                             continue;
                         }
                         if (id == 0) AddExercise();
-                        else ShowExercise(id);
+                        else ShowExercise(moves[index].Id);
                     } else {
                         Display.Print($"{input} is not a valid input.");
-                        ShowList();
+                        continue;
                     }
                 } else {
                     Display.Print("Please provide some input.");
@@ -77,19 +79,21 @@ namespace BornToMove {
 
         private static void ShowExercise(int id = 0) {
             var move = id == 0 ? Business.GimmeRandom() : Business.GimmeThis(id);
-            Display.Print("   Id Name          Rating\n" +
-                          "----------------------------------\n" +
-                          $"[{move.Id, 3}] {move.Name, -14}{move.Rating, -1}\n" +
-                          "----------------------------------");
+            Display.PrintHeader();
+            Display.PrintItem("*", move.Name, move.Description);
+            Display.Print("----------------------------------");
             Display.PrintWrapped(move.Description);
-            GetVotes(move.Id);
+            var vote = GetVote();
+            var rating = GetRating();
+            Business.ChangeThis(new [] {move.Id, vote, rating});
+            Display.Print("Thanks! See you tomorrow!");
         }
 
         private static void AddExercise() {
             Display.Print("Please enter a name for the new exercise:");
             var names = Business.GimmeAll().Select((m) => m.Name).ToList();
             var name = Console.ReadLine();
-            if (names.Contains(name)) {
+            if (names.Contains(name, StringComparer.OrdinalIgnoreCase)) {
                 Display.Print("Exercise already exists.");
                 AddExercise();
             }
@@ -104,46 +108,33 @@ namespace BornToMove {
             ShowMenu();
         }
 
-        private static void GetVotes(int id) {
+        private static int GetVote() {
             while (true) {
                 Display.Print("Please give this exercise a vote [1-5]:");
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out var vote)) {
                     if (vote >= 1 && vote <= 5) {
-                        var ratings = new int[3];
-                        ratings[0] = id;
-                        ratings[1] = vote;
-                        GetRating(ratings);
-                    } else {
-                        Display.Print($"{input} is not a valid input. Please try again.");
-                        continue;
+                        return vote;
                     }
+                    Display.Print($"{input} is not a valid input. Please try again.");
                 } else {
                     Display.Print($"{input} is not a valid input. Please try again.");
-                    continue;
                 }
-                break;
             }
         }
 
-        private static void GetRating(int[] ratings) {
+        private static int GetRating() {
             while (true) {
                 Display.Print("Please give this exercise an intensity rating [1-5]:");
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out var rating)) {
                     if (rating >= 1 && rating <= 5) {
-                        ratings[2] = rating;
-                        Business.ChangeThis(ratings);
-                        Display.Print("Thanks! See you tomorrow!");
-                    } else {
-                        Display.Print($"{input} is not a valid input. Please try again.");
-                        continue;
+                        return rating;
                     }
-                } else {
                     Display.Print($"{input} is not a valid input. Please try again.");
                     continue;
                 }
-                break;
+                Display.Print($"{input} is not a valid input. Please try again.");
             }
         }
     }
