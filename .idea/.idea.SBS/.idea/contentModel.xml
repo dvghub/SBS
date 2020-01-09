@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\dieuw\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\dieuw\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_SBS.-943218050.00" t="ExcludeRecursive" />
-    <e p="C:\Users\dieuw\Documents\GitHub\SBS" t="IncludeFlat">
+    <e p="C:\Users\moili\.Rider2019.2\config\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\moili\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\moili\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_SBS.-1457083493.00" t="ExcludeRecursive" />
+    <e p="D:\Educom\Projects\organiser\SBS" t="IncludeFlat">
       <e p="BornToMove" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="BornToMove.csproj" t="IncludeRecursive" />
@@ -32,6 +33,13 @@
       <e p="BornToMove.DAL" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="BornToMove.DAL.csproj" t="IncludeRecursive" />
+        <e p="Migrations" t="Include">
+          <e p="20200109092339_initial.cs" t="Include" />
+          <e p="20200109092339_initial.Designer.cs" t="Include" />
+          <e p="20200109094755_RatingTable.cs" t="Include" />
+          <e p="20200109094755_RatingTable.Designer.cs" t="Include" />
+          <e p="MoveContextModelSnapshot.cs" t="Include" />
+        </e>
         <e p="Move.cs" t="Include" />
         <e p="MoveContext.cs" t="Include" />
         <e p="MoveCrud.cs" t="Include" />
@@ -43,6 +51,7 @@
             </e>
           </e>
         </e>
+        <e p="UsableMove.cs" t="Include" />
       </e>
       <e p="organiser" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
