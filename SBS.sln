@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.Business", "Born
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{4116D8AA-2839-41BD-899B-CA9397B98D0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.Organiser.Test", "BornToMove.Organiser.Test\BornToMove.Organiser.Test.csproj", "{A25E151F-F2DF-42D5-9C70-BE98A3CD903B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4116D8AA-2839-41BD-899B-CA9397B98D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A25E151F-F2DF-42D5-9C70-BE98A3CD903B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A25E151F-F2DF-42D5-9C70-BE98A3CD903B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A25E151F-F2DF-42D5-9C70-BE98A3CD903B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A25E151F-F2DF-42D5-9C70-BE98A3CD903B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

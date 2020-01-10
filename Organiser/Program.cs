@@ -18,9 +18,11 @@ namespace Organiser {
                 Console.WriteLine("");
                 Console.WriteLine("");
                 
+                var sorter = new Sorter();
+                
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
-                Sorter.ShiftHigher(list);
+                sorter.ShiftHigher(list);
                 stopwatch.Stop();
                 var shiftTime = stopwatch.Elapsed;
                 foreach (var item in list) {
@@ -30,8 +32,10 @@ namespace Organiser {
                 Console.WriteLine(IsSorted(list) ? "List was sorted correctly." : "List was not sorted.");
                 Console.WriteLine("");
                 
+                var comparer = new Comparer();
+                
                 stopwatch.Start();
-                Sorter.Rotate(list2, 0, list.Count-1);
+                sorter.Rotate(list2, 0, list2.Count-1, comparer);
                 stopwatch.Stop();
                 var rotateTime = stopwatch.Elapsed;
                 foreach (var item in list2) {

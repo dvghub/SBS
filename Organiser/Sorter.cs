@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Organiser {
     public class Sorter {
-        public static List<int> ShiftHigher(List<int> list) {
+        public void ShiftHigher(List<int> list) {
             var length = list.Count;
             for (var j = 0; j < length-1; j++) {
                 for (var i = 0; i < length-1; i++) {
@@ -13,15 +14,14 @@ namespace Organiser {
                     list[i + 1] = temp;
                 }
             }
-            return list;
         }
         
-        public static void Rotate(List<int> list, int low, int high) {
+        public void Rotate(List<int> list, int low, int high, IComparer<int> comparer) {
             if (low >= high) return;
             var split = Partition(list, low, high);
 
-            Rotate(list, low, split - 1);
-            Rotate(list, split + 1, high);
+            Rotate(list, low, split - 1, comparer);
+            Rotate(list, split + 1, high, comparer);
         }
         
         private static int Partition(List<int> list, int low, int high) {

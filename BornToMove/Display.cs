@@ -13,8 +13,8 @@ namespace BornToMove {
                               "----------------------------------");
         }
 
-        public static void PrintItem(string index, string name, string description) {
-            Console.WriteLine($" {index,3}  {name,-14}{description,-1}");
+        public static void PrintItem(string index, string name, int rating) {
+            Console.WriteLine($" {index,3}  {name,-14}{rating,-1}");
         }
         
         public static void PrintWrapped(string paragraph) { //Copy pasted but I know what it does

@@ -16,7 +16,7 @@ namespace BornToMove {
         private static void ShowMenu() {
             while (true) {
                 Display.Print("It's time to MOVE!\n" + 
-                              "Would you like to get a [s]uggestion or see the [l]ist?" +
+                              "Would you like to get a [s]uggestion or see the [l]ist?\n" +
                               "Or press [x] to exit.");
                 var input = Console.ReadLine();
                 if (input != null) {
@@ -48,7 +48,7 @@ namespace BornToMove {
                 Display.PrintHeader();
                 var index = 1;
                 moves.ForEach((move) => {
-                    Display.PrintItem(index.ToString(), move.Name, move.Description);
+                    Display.PrintItem(index.ToString(), move.Name, move.Ratings().Rating);
                     index++;
                 });
                 Display.Print("   0  Add new exercise\n\n" + 
@@ -62,7 +62,7 @@ namespace BornToMove {
                             continue;
                         }
                         if (id == 0) AddExercise();
-                        else ShowExercise(moves[index].Id);
+                        else ShowExercise(moves[id-1].Id);
                     } else {
                         Display.Print($"{input} is not a valid input.");
                         continue;
@@ -78,7 +78,7 @@ namespace BornToMove {
         private static void ShowExercise(int id = 0) {
             var move = id == 0 ? Business.GimmeRandom() : Business.GimmeThis(id);
             Display.PrintHeader();
-            Display.PrintItem("*", move.Name, move.Description);
+            Display.PrintItem("*", move.Name, move.Ratings().Rating);
             Display.Print("----------------------------------");
             Display.PrintWrapped(move.Description);
             var vote = GetVote();
@@ -99,7 +99,7 @@ namespace BornToMove {
             Display.Print("Please enter a description for the new exercise:");
                         
             var description = Console.ReadLine();
-            var move = new UsableMove() {Name = name, Description = description};
+            var move = new Move() {Name = name, Description = description};
             var id = Business.MakeThis(move);
                         
             Display.Print($"Exercise created with id: {id}");
