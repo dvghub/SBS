@@ -26,10 +26,8 @@ namespace BornToMove.DAL {
 
         public Move Update(Move move) {
             var old = _context.Moves.Find(move.Id);
-            old = new Move {
-                Name = move.Name,
-                Description = move.Description
-            };
+            old.Name = move.Name;
+            old.Description = move.Description;
             _context.SaveChanges();
             return move;
         }
