@@ -7,11 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/borntomovedb</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="Microsoft SQL Server (jTds) - master" uuid="3b46cda3-4a12-4bf1-b492-804d25b79464">
+    <data-source source="LOCAL" name="Microsoft SQL Server (jTds) -" uuid="f56738f0-3315-4138-8fb1-7f6c133dc590">
       <driver-ref>sqlserver.jtds</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>net.sourceforge.jtds.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:jtds:sqlserver://./master;instance=&lt;pipe name&gt;;namedPipe=true</jdbc-url>
+      <jdbc-url>jdbc:jtds:sqlserver://./;instance=&lt;pipe name&gt;;namedPipe=true</jdbc-url>
       <jdbc-additional-properties>
         <property name="LOCAL_DB_INSTANCE" value="MSSQLLocalDB" />
         <property name="LOCAL_DB_EXECUTABLE" value="C:\Program Files\Microsoft SQL Server\150\Tools\Binn\SqlLocalDB.exe" />

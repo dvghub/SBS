@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Organiser;
 
 namespace BornToMove.DAL {
     public class MoveCrud {
@@ -17,7 +18,9 @@ namespace BornToMove.DAL {
         }
         
         public List<Move> Read() {
-            return _context.Moves.ToList().OrderByDescending((move) => move.Ratings().Rating).ToList();
+            var moves = _context.Moves.ToList();
+            moves.Sort(0, moves.Count, new RatingsConverter());
+            return moves;
         }
 
         public List<MoveRating> ReadRatings(int id) {

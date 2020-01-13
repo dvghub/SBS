@@ -44,7 +44,7 @@ namespace BornToMove {
 
         private static void ShowList() {
             while (true) {
-                var moves = Business.GimmeAll();
+                var moves = Business.ReadAll();
                 Display.PrintHeader();
                 var index = 1;
                 moves.ForEach((move) => {
@@ -76,20 +76,20 @@ namespace BornToMove {
         }
 
         private static void ShowExercise(int id = 0) {
-            var move = id == 0 ? Business.GimmeRandom() : Business.GimmeThis(id);
+            var move = id == 0 ? Business.Read() : Business.Read(id);
             Display.PrintHeader();
             Display.PrintItem("*", move.Name, move.Ratings().Rating);
             Display.Print("----------------------------------");
             Display.PrintWrapped(move.Description);
             var vote = GetVote();
             var rating = GetRating();
-            Business.ChangeThis(new [] {move.Id, vote, rating});
+            Business.Update(new [] {move.Id, vote, rating});
             Display.Print("Thanks! See you tomorrow!");
         }
 
         private static void AddExercise() {
             Display.Print("Please enter a name for the new exercise:");
-            var names = Business.GimmeAll().Select((m) => m.Name).ToList();
+            var names = Business.ReadAll().Select((m) => m.Name).ToList();
             var name = Console.ReadLine();
             if (names.Contains(name, StringComparer.OrdinalIgnoreCase)) {
                 Display.Print("Exercise already exists.");
@@ -100,7 +100,7 @@ namespace BornToMove {
                         
             var description = Console.ReadLine();
             var move = new Move() {Name = name, Description = description};
-            var id = Business.MakeThis(move);
+            var id = Business.Create(move);
                         
             Display.Print($"Exercise created with id: {id}");
             ShowMenu();

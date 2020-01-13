@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
 namespace BornToMove.DAL {
-    public class RatingsConverter : Comparer<MoveRating> {
-        public override int Compare(MoveRating x, MoveRating y) {
-            return x.Rating < y.Rating ? -1 : x.Rating == y.Rating ? 0 : -1;
+    public class RatingsConverter : Comparer<Move> {
+        public override int Compare(Move x, Move y) {
+            var result = y.Ratings().Rating.CompareTo(x.Ratings().Rating);
+            return result != 0 ? result : 0;
         }
     }
 }
